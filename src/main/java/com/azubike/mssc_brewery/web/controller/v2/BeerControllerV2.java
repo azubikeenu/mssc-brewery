@@ -30,8 +30,6 @@ public class BeerControllerV2 {
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<BeerDtoV2> handlePost(@RequestBody BeerDtoV2 beerDto) {
     BeerDtoV2 savedBeer = beerService.saveNewBeer(beerDto);
-    final Link beerLink = linkTo(BeerControllerV2.class).slash(savedBeer.getId()).withSelfRel();
-    savedBeer.add(beerLink);
     return ResponseEntity.status(HttpStatus.CREATED).body(savedBeer);
   }
 
@@ -42,8 +40,6 @@ public class BeerControllerV2 {
   public ResponseEntity<BeerDtoV2> handleUpdate(
       @PathVariable UUID beerId, @RequestBody BeerDtoV2 beerDto) {
     BeerDtoV2 updatedBeer = beerService.updateBeer(beerId, beerDto);
-    final Link link = linkTo(BeerControllerV2.class).slash(updatedBeer.getId()).withSelfRel();
-    updatedBeer.add(link);
     return ResponseEntity.status(HttpStatus.OK).body(updatedBeer);
   }
 
