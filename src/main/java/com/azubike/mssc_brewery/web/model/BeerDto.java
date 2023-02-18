@@ -1,18 +1,20 @@
 package com.azubike.mssc_brewery.web.model;
 
 import lombok.*;
-import org.springframework.hateoas.RepresentationModel;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Positive;
 import java.util.UUID;
 
-@EqualsAndHashCode(callSuper = true)
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BeerDto extends RepresentationModel<BeerDto> {
-  private UUID id;
-  private String beerName;
-  private String beerStyle;
-  private Long upc;
+public class BeerDto {
+  @Null private UUID id;
+  @NotBlank private String beerName;
+  @NotBlank private String beerStyle;
+  @Positive private Long upc;
 }

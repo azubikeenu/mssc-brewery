@@ -9,11 +9,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
-@Deprecated
 @RestController
 @RequestMapping("api/v1/beer")
 @RequiredArgsConstructor
@@ -28,10 +28,8 @@ public class BeerController {
   @PostMapping(
       produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<BeerDto> handlePost(@RequestBody BeerDto beerDto) {
+  public ResponseEntity<BeerDto> handlePost(@Valid @RequestBody BeerDto beerDto) {
     BeerDto savedBeer = beerService.saveNewBeer(beerDto);
-    final Link beerLink = linkTo(BeerController.class).slash(savedBeer.getId()).withSelfRel();
-    savedBeer.add(beerLink);
     return ResponseEntity.status(HttpStatus.CREATED).body(savedBeer);
   }
 
@@ -40,10 +38,8 @@ public class BeerController {
       produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<BeerDto> handleUpdate(
-      @PathVariable UUID beerId, @RequestBody BeerDto beerDto) {
+      @PathVariable UUID beerId, @Valid @RequestBody BeerDto beerDto) {
     BeerDto updatedBeer = beerService.updateBeer(beerId, beerDto);
-    final Link link = linkTo(BeerController.class).slash(updatedBeer.getId()).withSelfRel();
-    updatedBeer.add(link);
     return ResponseEntity.status(HttpStatus.OK).body(updatedBeer);
   }
 

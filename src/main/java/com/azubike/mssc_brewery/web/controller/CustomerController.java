@@ -29,9 +29,7 @@ public class CustomerController {
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<CustomerDto> handlePost(@RequestBody CustomerDto customerDto) {
     CustomerDto savedCustomer = customerService.saveNewCustomer(customerDto);
-    final Link customerLink =
-        linkTo(CustomerController.class).slash(savedCustomer.getId()).withSelfRel();
-    savedCustomer.add(customerLink);
+
     return ResponseEntity.status(HttpStatus.CREATED).body(savedCustomer);
   }
 
@@ -42,8 +40,6 @@ public class CustomerController {
   public ResponseEntity<CustomerDto> handleUpdate(
       @PathVariable UUID customerId, @RequestBody CustomerDto customerDto) {
     CustomerDto updatedCustomer = customerService.updateCustomer(customerId, customerDto);
-    final Link link = linkTo(CustomerController.class).slash(updatedCustomer.getId()).withSelfRel();
-    updatedCustomer.add(link);
     return ResponseEntity.status(HttpStatus.OK).body(updatedCustomer);
   }
 

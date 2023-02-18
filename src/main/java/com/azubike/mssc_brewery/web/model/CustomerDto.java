@@ -5,12 +5,11 @@ import org.springframework.hateoas.RepresentationModel;
 
 import java.util.UUID;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CustomerDto extends RepresentationModel<CustomerDto> {
+public class CustomerDto{
   private UUID id;
   private String name;
 }
