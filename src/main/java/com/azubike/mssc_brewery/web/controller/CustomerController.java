@@ -3,15 +3,16 @@ package com.azubike.mssc_brewery.web.controller;
 import com.azubike.mssc_brewery.web.model.CustomerDto;
 import com.azubike.mssc_brewery.web.services.CustomerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,5 +48,16 @@ public class CustomerController {
   @DeleteMapping(value = "/{customerId}")
   public void handleDelete(@PathVariable UUID customerId) {
     customerService.deleteCustomer(customerId);
+  }
+
+  @ExceptionHandler({ConstraintViolationException.class, MethodArgumentNotValidException.class})
+  public ResponseEntity<List<String>> handleValidationError(ConstraintViolationException ex) {
+    List<String> errors = new ArrayList<>(ex.getConstraintViolations().size());
+    ex.getConstraintViolations()
+        .forEach(
+            e -> {
+              errors.add(String.format("%s : %s", e.getPropertyPath().toString(), e.getMessage()));
+            });
+    return ResponseEntity.badRequest().body(errors);
   }
 }
