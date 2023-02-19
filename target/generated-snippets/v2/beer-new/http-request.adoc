@@ -1,9 +1,0 @@
-[source,http,options="nowrap"]
-----
-POST /api/v2/beer HTTP/1.1
-Content-Type: application/json;charset=UTF-8
-Content-Length: 238
-Host: richard.com.ellipsis:80
-
-{"id":null,"beerName":"PALE_ALE","version":null,"upc":1230300,"price":10.5,"createdDate":"2023-02-19T16:25:43.2196157+01:00","lastModifiedDate":"2023-02-19T16:25:43.2196157+01:00","beerStyle":"ALE","quantityOnHand":10,"quantityToBrew":10}
-----
