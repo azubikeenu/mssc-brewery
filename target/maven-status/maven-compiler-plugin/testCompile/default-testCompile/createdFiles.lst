@@ -1,0 +1,5 @@
+com\azubike\mssc_brewery\web\controller\v2\BeerControllerV2Test$ConstrainedFields.class
+com\azubike\mssc_brewery\SpringBootMscApplicationTests.class
+com\azubike\mssc_brewery\web\controller\v2\BeerControllerV2Test.class
+com\azubike\mssc_brewery\web\controller\BeerControllerTest.class
+util\TestUtils.class

@@ -1,4 +1,4 @@
-.+/api/v1/beer/{beerId}+
+.+/api/v2/beer/{beerId}+
 |===
 |Parameter|Description
 

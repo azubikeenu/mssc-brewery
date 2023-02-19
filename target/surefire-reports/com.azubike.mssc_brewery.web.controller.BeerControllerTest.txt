@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.azubike.mssc_brewery.web.controller.BeerControllerTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.872 s - in com.azubike.mssc_brewery.web.controller.BeerControllerTest

@@ -1,0 +1,29 @@
+|===
+|Path|Type|Description|Constraints
+
+|beerName
+|String
+|name of the beer
+|Must not be blank. Size must be between 2 and 100 inclusive
+
+|upc
+|Number
+|Upc of beer
+|Must be positive. Must not be null
+
+|beerStyle
+|String
+|Style of beerDto
+|Must not be null
+
+|price
+|Number
+|Price of beerDto
+|Must be positive. Must not be null
+
+|quantityToBrew
+|Number
+|Quantity of beer to brew
+|
+
+|=

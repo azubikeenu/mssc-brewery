@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 201 Created
+Content-Type: application/json
+Content-Length: 269
+
+{"id":"6f46abfb-250f-4216-9827-4e167c425115","beerName":"PALE_ALE","version":1,"upc":1230300,"price":10.5,"createdDate":"2023-02-19T16:25:43.2226149+01:00","lastModifiedDate":"2023-02-19T16:25:43.2226149+01:00","beerStyle":"ALE","quantityOnHand":10,"quantityToBrew":10}
+----

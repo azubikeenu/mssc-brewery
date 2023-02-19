@@ -1,0 +1,5 @@
+[source,bash]
+----
+$ echo '{"id":null,"beerName":"PALE_ALE","version":null,"upc":1230300,"price":10.5,"createdDate":"2023-02-19T16:25:43.2196157+01:00","lastModifiedDate":"2023-02-19T16:25:43.2196157+01:00","beerStyle":"ALE","quantityOnHand":10,"quantityToBrew":10}' | http POST 'https://richard.com.ellipsis:80/api/v2/beer' \
+    'Content-Type:application/json;charset=UTF-8'
+----

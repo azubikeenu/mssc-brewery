@@ -1,0 +1,5 @@
+[source,bash]
+----
+$ http GET 'https://richard.com.ellipsis:80/api/v2/beer/eff6acd0-8609-40d8-a123-e433b282644e?Hello=World' \
+    'Accept:application/json'
+----
