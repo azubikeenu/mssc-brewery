@@ -13,6 +13,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.UUID;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -23,15 +25,17 @@ class BeerControllerTest {
   @Autowired MockMvc mockMvc;
   @Autowired ObjectMapper objectMapper;
   BeerDto beerDto;
+  BeerDto validBeer;
 
   @BeforeEach
   void setup() {
     beerDto = BeerDto.builder().beerStyle("PALE_ALE").beerName("notNull").upc(10000L).build();
+    validBeer =
+        BeerDto.builder().id(UUID.randomUUID()).beerName("DummyBeer").beerStyle("PISLSNER").build();
   }
 
   @Test
   void getBeerById() throws Exception {
-
     mockMvc
         .perform(
             get("/api/v1/beer/{beerId}", UUID.randomUUID())
@@ -43,6 +47,7 @@ class BeerControllerTest {
   @Test
   void saveNewBeer() throws Exception {
     String beerDtoJson = objectMapper.writeValueAsString(beerDto);
+    when(beerService.saveNewBeer(any(BeerDto.class))).thenReturn(validBeer);
     mockMvc
         .perform(post("/api/v1/beer/").contentType(MediaType.APPLICATION_JSON).content(beerDtoJson))
         .andExpect(status().isCreated());
@@ -51,7 +56,6 @@ class BeerControllerTest {
   @Test
   void updateBeerById() throws Exception {
     String beerDtoJson = objectMapper.writeValueAsString(beerDto);
-
     mockMvc
         .perform(
             put("/api/v1/beer/" + UUID.randomUUID())

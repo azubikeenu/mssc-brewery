@@ -29,8 +29,6 @@ public class TestUtils {
         .beerStyle(BeerStyle.ALE)
         .price(new BigDecimal("10.5"))
         .upc(1230300L)
-        .createdDate(OffsetDateTime.now())
-        .lastModifiedDate(OffsetDateTime.now())
         .quantityToBrew(10)
         .quantityOnHand(10)
         .build();

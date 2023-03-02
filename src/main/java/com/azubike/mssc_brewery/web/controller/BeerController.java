@@ -3,17 +3,15 @@ package com.azubike.mssc_brewery.web.controller;
 import com.azubike.mssc_brewery.web.model.BeerDto;
 import com.azubike.mssc_brewery.web.services.BeerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.UUID;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @RequestMapping("api/v1/beer")
@@ -31,7 +29,12 @@ public class BeerController {
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<BeerDto> handlePost(@Valid @RequestBody BeerDto beerDto) {
     BeerDto savedBeer = beerService.saveNewBeer(beerDto);
-    return ResponseEntity.status(HttpStatus.CREATED).body(savedBeer);
+    URI location =
+        ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("/{beerId}")
+            .buildAndExpand(savedBeer.getId())
+            .toUri();
+    return ResponseEntity.created(location).body(savedBeer);
   }
 
   @PutMapping(

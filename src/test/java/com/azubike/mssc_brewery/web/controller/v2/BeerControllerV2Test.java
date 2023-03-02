@@ -31,7 +31,7 @@ import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(RestDocumentationExtension.class)
-@AutoConfigureRestDocs(uriScheme = "https" , uriHost = "richard.com.ellipsis" , uriPort = 80)
+@AutoConfigureRestDocs(uriScheme = "https", uriHost = "richard.com.ellipsis", uriPort = 80)
 @WebMvcTest(BeerControllerV2.class)
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 class BeerControllerV2Test {
@@ -78,9 +78,10 @@ class BeerControllerV2Test {
   @Test
   void handlePost() throws Exception {
     BeerDtoV2 createBeerDto = TestUtils.createBeerDto();
+    final BeerDtoV2 validBeerDto = TestUtils.createValidBeerDto();
     String beerDtoToJson = objectMapper.writeValueAsString(createBeerDto);
-    when(beerServiceV2.saveNewBeer(any(BeerDtoV2.class)))
-        .thenReturn(TestUtils.createValidBeerDto());
+
+    when(beerServiceV2.saveNewBeer(any(BeerDtoV2.class))).thenReturn(validBeerDto);
 
     ConstrainedFields fields = new ConstrainedFields(BeerDtoV2.class);
 
@@ -98,7 +99,11 @@ class BeerControllerV2Test {
                     fields.withPath("createdDate").ignored(),
                     fields.withPath("lastModifiedDate").ignored(),
                     fields.withPath("version").ignored(),
-                    fields.withPath("beerStyle").description("Style of beerDto"),
+                    fieldWithPath("beerStyle")
+                        .description("Style of beerDto")
+                        .attributes(
+                            key("constraints")
+                                .value("Must be one of ALE|GOSE|IPA|LAGER|PISLNER|STOUT")),
                     fields.withPath("price").description("Price of beerDto"),
                     fields.withPath("quantityToBrew").description("Quantity of beer to brew"),
                     fields.withPath("quantityOnHand").ignored()),
@@ -120,8 +125,6 @@ class BeerControllerV2Test {
 
   @Test
   void handleDelete() {}
-
-
 
   private static class ConstrainedFields {
     private final ConstraintDescriptions constraintDescriptions;
