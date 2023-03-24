@@ -19,36 +19,36 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RequestMapping("api/v1/customer")
 public class CustomerController {
-  private final CustomerService customerService;
+    private final CustomerService customerService;
 
-  @GetMapping(value = "/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<CustomerDto> getCustomer(@PathVariable UUID customerId) {
-    return ResponseEntity.ok(customerService.getById(customerId));
-  }
+    @GetMapping(value = "/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CustomerDto> getCustomer(@PathVariable UUID customerId) {
+        return ResponseEntity.ok(customerService.getById(customerId));
+    }
 
-  @PostMapping(
-      produces = MediaType.APPLICATION_JSON_VALUE,
-      consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<CustomerDto> handlePost(@RequestBody @Valid CustomerDto customerDto) {
-    CustomerDto savedCustomer = customerService.saveNewCustomer(customerDto);
+    @PostMapping(
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CustomerDto> handlePost(@RequestBody @Valid CustomerDto customerDto) {
+        CustomerDto savedCustomer = customerService.saveNewCustomer(customerDto);
 
-    return ResponseEntity.status(HttpStatus.CREATED).body(savedCustomer);
-  }
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedCustomer);
+    }
 
-  @PutMapping(
-      value = "/{customerId}",
-      produces = MediaType.APPLICATION_JSON_VALUE,
-      consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<CustomerDto> handleUpdate(
-      @PathVariable UUID customerId, @RequestBody  @Valid CustomerDto customerDto) {
-    CustomerDto updatedCustomer = customerService.updateCustomer(customerId, customerDto);
-    return ResponseEntity.status(HttpStatus.OK).body(updatedCustomer);
-  }
+    @PutMapping(
+            value = "/{customerId}",
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CustomerDto> handleUpdate(
+            @PathVariable UUID customerId, @RequestBody @Valid CustomerDto customerDto) {
+        CustomerDto updatedCustomer = customerService.updateCustomer(customerId, customerDto);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedCustomer);
+    }
 
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  @DeleteMapping(value = "/{customerId}")
-  public void handleDelete(@PathVariable UUID customerId) {
-    customerService.deleteCustomer(customerId);
-  }
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping(value = "/{customerId}")
+    public void handleDelete(@PathVariable UUID customerId) {
+        customerService.deleteCustomer(customerId);
+    }
 
 }

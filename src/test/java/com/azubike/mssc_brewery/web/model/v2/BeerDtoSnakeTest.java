@@ -9,7 +9,6 @@ import util.TestUtils;
 
 @JsonTest
 @ActiveProfiles("snake")
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class BeerDtoSnakeTest {
   @Autowired ObjectMapper objectMapper;
 

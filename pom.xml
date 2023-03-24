@@ -36,7 +36,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
-		
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -109,6 +109,7 @@
                     </annotationProcessorPaths>
                     <compilerArgs>
                         <compilerArg>
+                            <!-- annotate @Mapper classes with @Component -->
                             -Amapstruct.defaultComponentModel=spring
                         </compilerArg>
                     </compilerArgs>
@@ -122,6 +123,7 @@
                 <executions>
                     <execution>
                         <id>generate-docs</id>
+                        <!--Happens before package-->
                         <phase>prepare-package</phase>
                         <goals>
                             <goal>process-asciidoc</goal>
@@ -142,7 +144,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.7</version>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
                         <id>copy-resources</id>

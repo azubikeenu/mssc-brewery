@@ -2,17 +2,13 @@ package com.azubike.mssc_brewery.web.controller.v2;
 
 import com.azubike.mssc_brewery.web.model.v2.BeerDtoV2;
 import com.azubike.mssc_brewery.web.services.v2.BeerServiceV2;
+import java.util.UUID;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.UUID;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @RequiredArgsConstructor

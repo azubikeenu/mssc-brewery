@@ -9,16 +9,13 @@ import util.TestUtils;
 
 @JsonTest
 @ActiveProfiles("kebab")
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-
 public class BeerDtoKebabTest {
-    @Autowired
-    ObjectMapper objectMapper;
+  @Autowired ObjectMapper objectMapper;
 
-    @Test
-    void testKebabCasing() throws Exception {
-        BeerDtoV2 beerDtoV2 = TestUtils.createValidBeerDto();
-        String beerJson = objectMapper.writeValueAsString(beerDtoV2);
-        System.out.println(beerJson);
-    }
+  @Test
+  void testKebabCasing() throws Exception {
+    BeerDtoV2 beerDtoV2 = TestUtils.createValidBeerDto();
+    String beerJson = objectMapper.writeValueAsString(beerDtoV2);
+    System.out.println(beerJson);
+  }
 }

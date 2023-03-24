@@ -23,6 +23,10 @@ import java.util.UUID;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+
+// this replaces the MockMvcRequestBuilder [import static
+// org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*];
+
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
@@ -31,9 +35,8 @@ import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(RestDocumentationExtension.class)
-@AutoConfigureRestDocs(uriScheme = "https", uriHost = "richard.com.ellipsis", uriPort = 80)
+@AutoConfigureRestDocs(uriScheme = "https", uriHost = "your-host", uriPort = 80)
 @WebMvcTest(BeerControllerV2.class)
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 class BeerControllerV2Test {
   @MockBean BeerServiceV2 beerServiceV2;
   @Autowired MockMvc mockMvc;
@@ -47,7 +50,7 @@ class BeerControllerV2Test {
 
   @Test
   void getBeerDtoV2() throws Exception {
-    when(beerServiceV2.getBeerById(any())).thenReturn(beerDto);
+    when(beerServiceV2.getBeerById(any(UUID.class))).thenReturn(beerDto);
 
     mockMvc
         .perform(
@@ -103,7 +106,7 @@ class BeerControllerV2Test {
                         .description("Style of beerDto")
                         .attributes(
                             key("constraints")
-                                .value("Must be one of ALE|GOSE|IPA|LAGER|PISLNER|STOUT")),
+                                .value("Must be one of ALE, GOSE ,IPA, LAGER, PISLNER STOUT")),
                     fields.withPath("price").description("Price of beerDto"),
                     fields.withPath("quantityToBrew").description("Quantity of beer to brew"),
                     fields.withPath("quantityOnHand").ignored()),
@@ -139,7 +142,7 @@ class BeerControllerV2Test {
               key("constraints")
                   .value(
                       StringUtils.collectionToDelimitedString(
-                          this.constraintDescriptions.descriptionsForProperty(path), ". ")));
+                          this.constraintDescriptions.descriptionsForProperty(path), " .")));
     }
   }
 }
